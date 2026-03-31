@@ -41,9 +41,11 @@ class MultisitesCMSPageAddController extends CMSPageAddController {
 		$parentMode->removeByName('Top level');
         $parentMode->setValue('child');
 
-		$fields->insertAfter($parent = new TreeDropdownField(
+		$parent = new TreeDropdownField(
 			'ParentID', '', SiteTree::class, 'ID', 'TreeTitle'
-		), 'ParentModeField');
+		);
+
+		$fields->insertAfter('ParentModeField', $parent);
 
 		$parentID = $this->request->getVar('ParentID');
 		$parentID = $parentID ?: Multisites::inst()->getCurrentSiteId();
